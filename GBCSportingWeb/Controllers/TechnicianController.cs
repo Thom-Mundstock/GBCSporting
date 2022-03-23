@@ -58,10 +58,14 @@ namespace GBCSportingWeb.Controllers
         public IActionResult Delete(int id)
         {
             var technician = context.Technicians.Find(id);
+
+            //Have to load incidents if we want to cascade down and remove technicians from incidents 
+            var incidents = context.Incidents.ToList();
             context.Technicians.Remove(technician);
             context.SaveChanges();
             return RedirectToAction("Index");
         }
+
     }
 
 }

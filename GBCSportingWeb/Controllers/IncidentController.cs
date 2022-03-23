@@ -1,6 +1,8 @@
 ﻿using GBCSportingWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+
 
 namespace GBCSportingWeb.Controllers
 {
@@ -55,6 +57,11 @@ namespace GBCSportingWeb.Controllers
             {
                 if(incident.IncidentId == 0)
                 {
+                    if(incident.DateOpened == null)
+                    {
+                        incident.DateOpened = DateTime.Now;
+                    }
+
                     context.Incidents.Add(incident);
                     context.SaveChanges();
                 }
@@ -84,5 +91,6 @@ namespace GBCSportingWeb.Controllers
             context.SaveChanges();
             return RedirectToAction("Index");
         }
+
     }
 }
